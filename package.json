@@ -1,0 +1,119 @@
+{
+  "name": "keynest",
+  "displayName": "KeyNest",
+  "description": "A free, local-first developer secrets vault for API keys, passwords, credentials, and environment variables.",
+  "version": "0.0.1",
+  "publisher": "KeyNest",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keynest/keynest"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "keynest-explorer",
+          "title": "KeyNest",
+          "icon": "media/lock.svg"
+        }
+      ]
+    },
+    "views": {
+      "keynest-explorer": [
+        {
+          "id": "keynest.sidebar",
+          "name": "Vault",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "keynest.addSecret",
+        "title": "KeyNest: Add Secret",
+        "icon": "$(add)"
+      },
+      {
+        "command": "keynest.searchSecrets",
+        "title": "KeyNest: Search Secrets"
+      },
+      {
+        "command": "keynest.openVault",
+        "title": "KeyNest: Open Vault"
+      },
+      {
+        "command": "keynest.lockVault",
+        "title": "KeyNest: Lock Vault"
+      },
+      {
+        "command": "keynest.addProject",
+        "title": "KeyNest: Add Project"
+      },
+      {
+        "command": "keynest.addEnvironment",
+        "title": "KeyNest: Add Environment"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "keynest.openVault",
+        "key": "ctrl+shift+alt+o",
+        "mac": "cmd+shift+alt+o"
+      },
+      {
+        "command": "keynest.lockVault",
+        "key": "ctrl+shift+alt+l",
+        "mac": "cmd+shift+alt+l"
+      },
+      {
+        "command": "keynest.addSecret",
+        "key": "ctrl+shift+alt+s",
+        "mac": "cmd+shift+alt+s"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src --ext ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "eslint": "^8.56.0",
+    "esbuild": "^0.20.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3",
+    "@vscode/test-cli": "^0.0.6",
+    "@vscode/test-electron": "^2.3.9"
+  },
+  "dependencies": {},
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
